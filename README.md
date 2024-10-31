@@ -1,6 +1,3 @@
-Here's a comprehensive `README.md` file for your GitHub repository, including a section for the Makefile:
-
-```markdown
 # LITEBOOT Bootloader
 
 LITEBOOT is a simple bootloader written in 16-bit assembly language, designed to run on x86 architecture. It serves as a demonstration of basic bootloader functionality, including message display and hardware interrupt handling.
@@ -20,33 +17,6 @@ The bootloader is structured as follows:
 3. **Print Function**: Iterates over a null-terminated string and calls the `print_char` function to display each character.
 4. **Character Printing**: Uses BIOS interrupt `0x10` to output characters to the screen.
 
-### Code Snippet
-
-Here is a snippet of the main components of the bootloader:
-
-```assembly
-org 0h                                   ; Set origin to 0x0000 (start of memory)
-bits 16                                  ; Indicate that we're working in 16-bit mode
-
-_start:                                  ; Entry point of the bootloader
-    jmp main                             ; Jump to the main function to start execution
-
-main:
-    cli                                  ; Clear interrupts (disable hardware interrupts)
-    mov ax, 0x7C0                        ; Load the segment value (0x7C0) into AX register
-    mov ds, ax                           ; Set the Data Segment (DS) to the value in AX
-    mov es, ax                           ; Set the Extra Segment (ES) to the same value
-    mov ax, 0x0                          ; Clear AX register
-    mov ss, ax                           ; Set the Stack Segment (SS) to 0
-    mov sp, 0x7C00                       ; Initialize the Stack Pointer (SP) to 0x7C00
-    sti                                  ; Set interrupts (enable hardware interrupts)
-    mov si, hello_message                ; Load the address of the hello_message
-    call print                           ; Call the print function to output the message
-    jmp $                                ; Infinite loop to stay in the bootloader
-
-print:                                   ; Function to print a null-terminated string
-    ; ...
-```
 
 ## Makefile
 
